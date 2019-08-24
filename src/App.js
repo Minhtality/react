@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Todos from './components/Todos';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    todos: [
+      {
+        id: 1,
+        title: 'Take me out',
+        completed: false
+      },
+      {
+        id: 2,
+        title: 'Take him out',
+        completed: false
+      },
+      {
+        id: 3,
+        title: 'Take her out',
+        completed: false
+      }
+    ]
+  }
+
+  //State Change Toggle 
+  markComplete = (id) => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed
+        }
+        return todo;
+      })
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <nav className="navbar">
+          <div className="container">
+            <h1 className="logo">
+              <a href="#home">
+                <img
+                  src="http://minhtality.me/img/rocket1.029ea0d7.gif"
+                  alt=""
+                />
+              </a>
+            </h1>
+            <ul className="nav">
+              <li>
+                <a href="#menu">Menu</a>
+              </li>
+              <li>
+                <a href="#more">More</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        {/* Where Work Begings */}
+        <Todos todos={this.state.todos} markComplete={this.markComplete} />
+      </div>
+    );
+  }
 }
 
 export default App;
