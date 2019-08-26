@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   //State Change Toggle 
-  markComplete = (id) => {
+  toggleComplete = (id) => {
     this.setState({
       todos: this.state.todos.map(todo => {
         if (todo.id === id) {
@@ -32,7 +32,13 @@ class App extends Component {
         }
         return todo;
       })
-    })
+    });
+  }
+  //Delete Todo
+  delTodo = (id) => {
+    this.setState({
+      todos: [...this.state.todos.filter((todo) => (todo.id !== id))]
+    });
   }
 
   render() {
@@ -59,10 +65,10 @@ class App extends Component {
           </div>
         </nav>
         {/* Where Work Begings */}
-        <Todos todos={this.state.todos} markComplete={this.markComplete} />
+        <Todos todos={this.state.todos} toggleComplete={this.toggleComplete} delTodo={this.delTodo} />
       </div>
     );
   }
 }
-
+//need to migrate nav bar to header compnent
 export default App;
