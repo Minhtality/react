@@ -5,8 +5,9 @@ export class TodoItem extends Component {
 
   getStyle = () => {
     return {
-      background: '#f4f4f4',
+      background: 'rgba(0,0,0,.4)',
       padding: '1rem',
+      color: '#fff',
       borderBottom: '1px #ccc dotted',
       textDecoration: this.props.todo.completed ? 'line-through' : 'none'
     }
@@ -28,7 +29,7 @@ export class TodoItem extends Component {
 }
 //Button Styles
 const btnStyle = {
-  background: '#ff0000',
+  background: '#FF6666',
   color: '#fff',
   border: 'none',
   padding: '5px 9px',

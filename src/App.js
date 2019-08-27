@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Todos from './components/Todos';
+import Header from './components/layout/Header';
+import AddTodo from './components/AddTodo';
+import About from './components/pages/About';
+import uuid from 'uuid';
 
 class App extends Component {
   state = {
     todos: [
-      {
-        id: 1,
-        title: 'Take me out',
-        completed: false
-      },
-      {
-        id: 2,
-        title: 'Take him out',
-        completed: false
-      },
-      {
-        id: 3,
-        title: 'Take her out',
-        completed: false
-      }
+      ///Replace with DB soon
+      // {
+      //   id: uuid.v4(),
+      //   title: 'Take me out',
+      //   completed: false
+      // },
+      // {
+      //   id: uuid.v4(),
+      //   title: 'Take him out',
+      //   completed: false
+      // },
+      // {
+      //   id: uuid.v4(),
+      //   title: 'Take her out',
+      //   completed: false
+      // }
     ]
   }
 
@@ -40,33 +46,35 @@ class App extends Component {
       todos: [...this.state.todos.filter((todo) => (todo.id !== id))]
     });
   }
+  //Add todo
+  AddTodo = (title) => {
+    const newTodo = {
+      id: uuid.v4(),
+      title: title,
+      completed: false
+    }
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  }
 
   render() {
     return (
-      <div className="App">
-        <nav className="navbar">
-          <div className="container">
-            <h1 className="logo">
-              <a href="#home">
-                <img
-                  src="http://minhtality.me/img/rocket1.029ea0d7.gif"
-                  alt=""
-                />
-              </a>
-            </h1>
-            <ul className="nav">
-              <li>
-                <a href="#menu">Menu</a>
-              </li>
-              <li>
-                <a href="#more">More</a>
-              </li>
-            </ul>
+      <Router>
+        <div className="App">
+          <Header />
+          <div className="innerContainer">
+            {/* Home Route */}
+            <Route exact path='/' render={props => (
+              <React.Fragment>
+                <AddTodo AddTodo={this.AddTodo} />
+                <Todos todos={this.state.todos} toggleComplete={this.toggleComplete} delTodo={this.delTodo} />
+              </React.Fragment>
+            )} />
+            {/* About Route */}
+            <Route path='/about' component={About} />
           </div>
-        </nav>
-        {/* Where Work Begings */}
-        <Todos todos={this.state.todos} toggleComplete={this.toggleComplete} delTodo={this.delTodo} />
-      </div>
+        </div>
+      </Router>
+
     );
   }
 }
