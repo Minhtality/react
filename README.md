@@ -1,4 +1,4 @@
-#Simple todo list with React
+# Simple todo list with React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
 
